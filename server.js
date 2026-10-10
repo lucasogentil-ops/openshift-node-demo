@@ -4,7 +4,7 @@ const app=express();
 const PORT = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-    res.json({
+    res.status(200).json({
         message: "Welcome Tony and Kate to my first API deployed on OpenShift",
         developer: "Lucas",
         status: "success"
@@ -13,14 +13,10 @@ app.get('/', (req, res) => {
 
 
 app.get("/health", (req, res) => {
-
-    console.log("ERROR: Simulated health check failure!");
-
-    res.status(500).json({
-        status: "unhealthy",
-        error: "Simulated application failure"
+    res.status(200).json({
+        status: "healthy",
+        message: "Application is running just fine"
     });
-
 });
 
 
