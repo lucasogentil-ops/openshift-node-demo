@@ -1,0 +1,81 @@
+Server.js Debugging
+
+Initial Sympthom: Server is not running ? Why?
+
+Initial investigation, to find where the app is stopping:
+
+Approach used, break the codespace in different pieces, debugging each part of the code with logging to identify exactly where the app is stopping.
+
+Steps of it:
+
+Step 1: Node.js is running the file
+Step 2: Express is loading
+Step 3: Server is being reached
+Step 4: The HTTP server started listening
+
+npm start
+
+Server is not executing command, commmands done directly on the terminal work fine.... Cause, running server in the wrong folder.
+
+
+
+
+
+
+Original code:
+
+
+
+const express = require('express');
+const app=express();
+
+const PORT = process.env.PORT || 8080;
+
+app.get('/', (req, res) => {
+    res.json({
+        message: "Welcome Tony and Kate to my first API deployed on OpenShift",
+        developer: "Lucas",
+        status: "success"
+    });
+});
+
+app.get("/health", (req, res)=> {
+    res.json({
+        status:"Healthy",
+    })
+});
+
+
+
+app.listen(PORT, "0.0.0.0", ()=>{
+    console.log("Server is running on port: ${PORT} ");
+});
+
+
+Debugging version:
+
+
+console.log("Step 1: Starting application");
+
+const express = require("express");
+console.log("Step 2: Express loaded");
+
+const app = express();
+const PORT = process.env.PORT || 8080;
+
+app.get("/", (req, res) => {
+    res.json({
+        message: "Hello from OpenShift!",
+        status: "running"
+    });
+});
+
+console.log("Step 3: Starting HTTP server");
+
+const server = app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Step 4: Server listening on port ${PORT}`);
+});
+
+server.on("error", (err) => {
+    console.error("Server error:", err);
+});
