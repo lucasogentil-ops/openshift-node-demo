@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); 
 const app=express();
 
 const PORT = process.env.PORT || 8080;
@@ -11,10 +11,16 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get("/health", (req, res)=> {
-    res.json({
-        status:"Healthy",
-    })
+
+app.get("/health", (req, res) => {
+
+    console.log("ERROR: Simulated health check failure!");
+
+    res.status(500).json({
+        status: "unhealthy",
+        error: "Simulated application failure"
+    });
+
 });
 
 
