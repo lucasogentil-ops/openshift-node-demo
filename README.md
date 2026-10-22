@@ -23,7 +23,7 @@ Example homepage response (message text may differ in the deployed version):
 
 ```json
 {
-  "message": "Welcome Tony and Kate to my first API deployed on OpenShift",
+  "message": "Welcome To my first API deployed on OpenShift",
   "developer": "Lucas",
   "status": "success"
 }
